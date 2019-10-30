@@ -1,0 +1,177 @@
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| firstname | lastname   | licensenumber | datelicensed | specialty    | hospitalcode | headdate   |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| hahaha    | hohohoho   | AW12          | 1999-07-01   | Surgeon      | ABC          | NULL       |
+| Joey      | Shabado    | GD56          | 1960-06-24   | Podiatrist   | BBC          | 1999-09-10 |
+| Ross      | Clooney    | HT45          | 1987-06-20   | Surgeon      | DDE          | NULL       |
+| Mandy     | Webster    | JK78          | 1990-08-08   | Surgeon      | BBC          | NULL       |
+| Bernie    | Kavorikian | RD34          | 1980-09-09   | Urologist    | BBC          | NULL       |
+| Colleen   | Aziz       | SE66          | 1989-08-24   | Surgeon      | ABC          | 1994-12-05 |
+| Ben       | Spock      | YT67          | 1955-02-20   | Pediatrician | DDE          | 1997-12-07 |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+DELETE FROM doctor WHERE datelicensed < '1965-01-01'
+--------------
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| firstname | lastname   | licensenumber | datelicensed | specialty    | hospitalcode | headdate   |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| hahaha    | hohohoho   | AW12          | 1999-07-01   | Surgeon      | ABC          | NULL       |
+| Joey      | Shabado    | GD56          | 1960-06-24   | Podiatrist   | BBC          | 1999-09-10 |
+| Ross      | Clooney    | HT45          | 1987-06-20   | Surgeon      | DDE          | NULL       |
+| Mandy     | Webster    | JK78          | 1990-08-08   | Surgeon      | BBC          | NULL       |
+| Bernie    | Kavorikian | RD34          | 1980-09-09   | Urologist    | BBC          | NULL       |
+| Colleen   | Aziz       | SE66          | 1989-08-24   | Surgeon      | ABC          | 1994-12-05 |
+| Ben       | Spock      | YT67          | 1955-02-20   | Pediatrician | DDE          | 1997-12-07 |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW vie AS SELECT patient.firstname AS patfirstname, patient.lastname AS patlastname,hospital.hospitalname AS hospname,doctor.lastname AS doclast FROM patient,doctor,hospital WHERE licensenumber IN(SELECT licensenumber FROM treats WHERE headdate IN (SELECT headdate FROM doctor WHERE headdate >"1995-12-31"))
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+SELECT * FROM vie
+--------------
+
++--------------+-------------+------------+---------+
+| patfirstname | patlastname | hospname   | doclast |
++--------------+-------------+------------+---------+
+| Bill         | Gellar      | Victoria   | Shabado |
+| Bill         | Gellar      | St. Joseph | Shabado |
+| Bill         | Gellar      | Victoria   | Shabado |
+| Suzi         | Brown       | Victoria   | Shabado |
+| Suzi         | Brown       | St. Joseph | Shabado |
+| Suzi         | Brown       | Victoria   | Shabado |
+| Jon          | Green       | Victoria   | Shabado |
+| Jon          | Green       | St. Joseph | Shabado |
+| Jon          | Green       | Victoria   | Shabado |
+| Weizhi       | Chen        | Victoria   | Shabado |
+| Weizhi       | Chen        | St. Joseph | Shabado |
+| Weizhi       | Chen        | Victoria   | Shabado |
+| Colleen      | Gellar      | Victoria   | Shabado |
+| Colleen      | Gellar      | St. Joseph | Shabado |
+| Colleen      | Gellar      | Victoria   | Shabado |
+| Sean         | Gellar      | Victoria   | Shabado |
+| Sean         | Gellar      | St. Joseph | Shabado |
+| Sean         | Gellar      | Victoria   | Shabado |
+| Scotty       | Bing        | Victoria   | Shabado |
+| Scotty       | Bing        | St. Joseph | Shabado |
+| Scotty       | Bing        | Victoria   | Shabado |
++--------------+-------------+------------+---------+
+21 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| firstname | lastname   | licensenumber | datelicensed | specialty    | hospitalcode | headdate   |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| hahaha    | hohohoho   | AW12          | 1999-07-01   | Surgeon      | ABC          | NULL       |
+| Joey      | Shabado    | GD56          | 1960-06-24   | Podiatrist   | BBC          | 1999-09-10 |
+| Ross      | Clooney    | HT45          | 1987-06-20   | Surgeon      | DDE          | NULL       |
+| Mandy     | Webster    | JK78          | 1990-08-08   | Surgeon      | BBC          | NULL       |
+| Bernie    | Kavorikian | RD34          | 1980-09-09   | Urologist    | BBC          | NULL       |
+| Colleen   | Aziz       | SE66          | 1989-08-24   | Surgeon      | ABC          | 1994-12-05 |
+| Ben       | Spock      | YT67          | 1955-02-20   | Pediatrician | DDE          | 1997-12-07 |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+---------------+
+| ohip      | licensenumber |
++-----------+---------------+
+| 110112113 | GD56          |
+| 444555666 | HT45          |
+| 444555666 | JK78          |
+| 111222333 | SE66          |
+| 111222333 | HT45          |
+| 111222333 | JK78          |
+| 333444555 | GD56          |
+| 667766777 | HT45          |
+| 667766777 | JK78          |
+| 667766777 | GD56          |
+| 111222111 | HT45          |
++-----------+---------------+
+11 rows in set (0.00 sec)
+
+--------------
+DELETE FROM doctor WHERE lastname ="Clooney"
+--------------
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| firstname | lastname   | licensenumber | datelicensed | specialty    | hospitalcode | headdate   |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| hahaha    | hohohoho   | AW12          | 1999-07-01   | Surgeon      | ABC          | NULL       |
+| Joey      | Shabado    | GD56          | 1960-06-24   | Podiatrist   | BBC          | 1999-09-10 |
+| Ross      | Clooney    | HT45          | 1987-06-20   | Surgeon      | DDE          | NULL       |
+| Mandy     | Webster    | JK78          | 1990-08-08   | Surgeon      | BBC          | NULL       |
+| Bernie    | Kavorikian | RD34          | 1980-09-09   | Urologist    | BBC          | NULL       |
+| Colleen   | Aziz       | SE66          | 1989-08-24   | Surgeon      | ABC          | 1994-12-05 |
+| Ben       | Spock      | YT67          | 1955-02-20   | Pediatrician | DDE          | 1997-12-07 |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+---------------+
+| ohip      | licensenumber |
++-----------+---------------+
+| 110112113 | GD56          |
+| 444555666 | HT45          |
+| 444555666 | JK78          |
+| 111222333 | SE66          |
+| 111222333 | HT45          |
+| 111222333 | JK78          |
+| 333444555 | GD56          |
+| 667766777 | HT45          |
+| 667766777 | JK78          |
+| 667766777 | GD56          |
+| 111222111 | HT45          |
++-----------+---------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| firstname | lastname   | licensenumber | datelicensed | specialty    | hospitalcode | headdate   |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+| hahaha    | hohohoho   | AW12          | 1999-07-01   | Surgeon      | ABC          | NULL       |
+| Joey      | Shabado    | GD56          | 1960-06-24   | Podiatrist   | BBC          | 1999-09-10 |
+| Ross      | Clooney    | HT45          | 1987-06-20   | Surgeon      | DDE          | NULL       |
+| Mandy     | Webster    | JK78          | 1990-08-08   | Surgeon      | BBC          | NULL       |
+| Bernie    | Kavorikian | RD34          | 1980-09-09   | Urologist    | BBC          | NULL       |
+| Colleen   | Aziz       | SE66          | 1989-08-24   | Surgeon      | ABC          | 1994-12-05 |
+| Ben       | Spock      | YT67          | 1955-02-20   | Pediatrician | DDE          | 1997-12-07 |
++-----------+------------+---------------+--------------+--------------+--------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+DELETE FROM doctor WHERE specialty ="Surgeon"
+--------------
+
+Bye

@@ -1,0 +1,23 @@
+-- Weizhi(Ryan's Script1)
+-- Database
+SHOW databases;
+DROP DATABASE IF EXISTS wchen385assign2db;
+CREATE DATABASE wchen385assign2db;
+USE wchen385assign2db;
+
+-- Permission
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON wchen385assign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+SHOW tables;
+
+-- Create Tables
+CREATE TABLE patient (ohip INT(9) NOT NULL,firstname CHAR(20) NOT NULL, lastname CHAR(20) NOT NULL,PRIMARY KEY (ohip));
+CREATE TABLE doctor (firstname VARCHAR(20) NOT NULL, lastname VARCHAR(20) NOT NULL,licensenumber CHAR(4) NOT NULL, datelicensed DATE NOT NULL,specialty VARCHAR(30) NOT NULL,hospitalcode CHAR(3),headdate DATE,PRIMARY KEY (licensenumber));
+CREATE TABLE hospital (hospitalcode CHAR(3) NOT NULL,hospitalname CHAR(20) NOT NULL, city CHAR(20) NOT NULL, prov CHAR(2) NOT NULL, numbeds INT NOT NULL,headdocid CHAR(4),CONSTRAINT headdocid FOREIGN KEY (headdocid) REFERENCES doctor(licensenumber),PRIMARY KEY (hospitalcode));
+CREATE Table treats(ohip INT(9) NOT NULL,licensenumber CHAR(4) NOT NULL,CONSTRAINT ohip FOREIGN KEY(ohip) REFERENCES patient(ohip),CONSTRAINT licensenumber FOREIGN KEY(licensenumber) REFERENCES doctor(licensenumber));
+
+-- SHOW tables
+SHOW tables;

@@ -1,0 +1,23 @@
+-- Weizhi(Ryan's Script4)
+USE wchen385assign2db;
+
+-- Delete Doctor
+SELECT * FROM doctor;
+DELETE FROM doctor WHERE datelicensed < '1965-01-01';
+SELECT * FROM doctor;
+-- The delete command did not work because foreign key error occur, the doctor that is going to be deleted is the parent row of other table(treats,hospital)
+
+-- View
+CREATE VIEW vie AS SELECT patient.firstname AS patfirstname, patient.lastname AS patlastname,hospital.hospitalname AS hospname,doctor.lastname AS doclast FROM patient,doctor,hospital WHERE licensenumber IN(SELECT licensenumber FROM treats WHERE headdate IN (SELECT headdate FROM doctor WHERE headdate >"1995-12-31"));
+SELECT * FROM vie;
+SELECT * FROM doctor;
+SELECT * FROM treats;
+DELETE FROM doctor WHERE lastname ="Clooney";
+SELECT * FROM doctor;
+
+-- SELECT * FROM doctor.REFERENTIAL_CONSTRAINTS;
+SELECT * FROM treats;
+SELECT * FROM doctor;
+DELETE FROM doctor WHERE specialty ="Surgeon";
+
+-- The delete command did not delete the rows because those records for doctors such as Colleen Aziz is the head of Victory hospital and also patient Jon Green from table treats also depends on him, the doctor's licensenumber is used as foreign key in other table.
